@@ -1,0 +1,33 @@
+{
+  "name": "node-tistory",
+  "version": "0.1.0",
+  "description": "Tistory Client module",
+  "main": "lib/tistory",
+  "scripts": {
+    "test": "tistory-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saltfactory/node-tistory.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "api",
+    "tistory",
+    "saltfactory"
+  ],
+  "author": "SungKwang Song",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saltfactory/node-tistory/issues"
+  },
+  "homepage": "https://github.com/saltfactory/node-tistory",
+  "devDependencies":{
+    "tracer":"latest"
+  },
+  "dependencies":{
+    "request":"latest"
+  }
+
+}
