@@ -17,17 +17,24 @@
     "tistory",
     "saltfactory"
   ],
-  "author": "SungKwang Song",
+  "author": {
+    "name": "SungKwang Song",
+    "email": "saltfactory@gmail.com",
+    "url": "https://twitter.com/saltfactory"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/saltfactory/node-tistory/issues"
   },
   "homepage": "https://github.com/saltfactory/node-tistory",
   "devDependencies":{
-    "tracer":"latest"
+    "tracer":"latest",
+    "mocha":"latest",
+    "assert":"latest"
   },
   "dependencies":{
-    "request":"latest"
+    "request":"~2.37.0",
+    "underscore": "~1.6.0"
   }
 
 }

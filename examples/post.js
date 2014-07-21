@@ -1,5 +1,5 @@
 var Tistory = require('../lib/tistory'),
-  logger = require('./logger'),
+  logger = require('hbn-logger').tracer({level: 'all'}),
   options = require('./example-options');
 
 var tistory = new Tistory(options);
@@ -8,7 +8,7 @@ var callback = function (err, body) {
   if (err) {
     logger.error(err);
   } else {
-    logger.debug(body);
+//    logger.debug(body);
     var json = JSON.parse(body);
     logger.info(json.tistory);
   }
@@ -20,14 +20,14 @@ var callback = function (err, body) {
 ////  categoryId:   //default all categories
 //  sort: 'id'      //default:id(글번호) , date(날짜)
 //}, callback);
-tistory.post.list({page: 1}, callback);
-
+//tistory.post.list({page: 1, targetUrl: "blog.saltfactory.net"}, callback);
 //tistory.post.read({postId: 12}, callback);
 //
+
 //tistory.post.write({
-//  visibility: 0,              //default: 0(비공개), 1(보호), 2(공개), 3(발행), 생략시 비공개
-////  published:                //UNIX_TIMESTAMP() 값을 넣을 경우, 예약발행
-//  categoryId: 0,               //default:0 (생략시 분류없음)
+////  visibility: 0,              //default: 0(비공개), 1(보호), 2(공개), 3(발행), 생략시 비공개
+//////  published:                //UNIX_TIMESTAMP() 값을 넣을 경우, 예약발행
+////  categoryId: 0,               //default:0 (생략시 분류없음)
 //  tag: 'nodejs, node-tistory',
 //  title: 'test',
 //  content: '본문'
@@ -46,5 +46,10 @@ tistory.post.list({page: 1}, callback);
 //
 //tistory.post.delete({postId: 11}, callback);
 
-
+//tistory.writeFromFile('/Users/saltfactory/Dropbox/Blog/output/2014-07-16-using-passport-tistory-in-express/2014-07-16-using-passport-tistory-in-express.md.html',
+//  {
+//    title:''
+//  },
+//  callback
+//);
 
