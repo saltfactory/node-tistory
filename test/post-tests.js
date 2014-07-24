@@ -92,7 +92,7 @@ describe('Tistory Post API', function () {
   /**
    * test Tistory Post update API
    */
-  describe('#update()', function () {
+  describe.only('#modify()', function () {
     it('shoud return post item', function(done){
       var params = {
         postId:8,
@@ -101,7 +101,7 @@ describe('Tistory Post API', function () {
         content: '본문2'
       };
 
-      post.update(params, function(err, body){
+      post.modify(params, function(err, body){
         var json = JSON.parse(body);
         console.log(body);
         assert.equal(json.tistory.status, '200', 'post failed!');

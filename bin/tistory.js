@@ -9,7 +9,10 @@ var path = require('path'),
   logger = require('hbn-logger').tracer(),
   nopt = require("nopt");
 
-var knownOpts = { "targetUrl": String,
+var knownOpts = {
+  "help":Boolean,
+
+  "targetUrl": String,
   "cfg": path,
   "token": String,
   "opt": String,
@@ -44,9 +47,17 @@ var knownOpts = { "targetUrl": String,
 
 };
 
-var shortHands = { "url": ["-targetUrl"], "t": ["-token"], "file": ["-uploadedfile"]};
+var shortHands = {"-h":["-help"], "url": ["-targetUrl"], "t": ["-token"], "file": ["-uploadedfile"]};
 var parsed = nopt(knownOpts, shortHands, process.argv, 1);
 var options = {};
+
+
+if(parsed.help){
+  console.log("" +
+    "usage: tistory [blog|post|category] [info|list|read|write|update|attach|find] -[options] [values]"
+  );
+  process.exit();
+}
 
 
 util.print("*** start mark2html ***\n");
@@ -64,7 +75,6 @@ if (!fs.existsSync(defaultCfg)) {
   options = util._extend(options, json);
 }
 
-
 if (parsed.cfg) {
   if (!fs.existsSync(parsed.cfg)) {
     logger.warn('Not found global options file! node-tistory go on with default options');
@@ -73,7 +83,6 @@ if (parsed.cfg) {
     options = util._extend(options, JSON.parse(fs.readFileSync(parsed.cfg)));
   }
 }
-
 
 if (parsed.opt) {
   var json;
@@ -163,7 +172,7 @@ else if (command === "post") {
       end();
     });
   }
-  else if ((subCommand == 'write') || (subCommand == 'update')) {
+  else if ((subCommand == 'write') || (subCommand == 'modify')) {
     if (parsed.postId) {
       params = util._extend(params, {postId: parsed.postId});
     }
@@ -194,7 +203,7 @@ else if (command === "post") {
         end();
       });
     } else {
-      tistory.post.update(params, function (err, body) {
+      tistory.post.modify(params, function (err, body) {
         out(body);
         end();
       });
@@ -219,9 +228,9 @@ else if (command === 'category'){
      });
   }
   else if (subCommand === 'find'){
-
     if(parsed.name){
-      tistory.category.find(parsed.name, function(err, body){
+      params = util._extend(params, {name:parsed.name});
+      tistory.category.find(params, function(err, body){
         out(body);
         end();
       });

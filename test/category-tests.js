@@ -51,10 +51,13 @@ describe('Tistory Category API', function () {
   /**
    * test Tistory Category list API
    */
-  describe.only('#find()', function () {
+  describe('#find()', function () {
     it('sould return tistory json', function (done) {
+      var params = {
+        name:'Ruby'
+      };
 
-      category.find('Ruby', function (err, body) {
+      category.find(params, function (err, body) {
         console.log(body);
         var json = JSON.parse(body);
         assert.equal(json.name, 'Ruby', 'not equal');
