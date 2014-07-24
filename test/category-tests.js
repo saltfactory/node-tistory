@@ -9,22 +9,22 @@ var assert = require("assert");
  */
 describe('Tistory Category API', function () {
   var Category = require('../lib/tistory/category.js');
-  var category = new Category(require('../examples/example-options'));
+  var category;
 
   /**
    * before run test method
    */
   before(function () {
-    category.baseUrl = 'https://www.tistory.com/apis';
+    category = new Category(require('../examples/example-options'));
   });
 
 
   /**
-   * test settings category.baseUrl
+   * test settings category.options.baseUrl
    */
   describe('set baseUrl to Category property', function () {
     it('should return -1 when the value is not present', function (done) {
-      assert.equal(category.baseUrl, 'https://www.tistory.com/apis', 'not equal');
+      assert.equal(category.options.baseUrl, 'https://www.tistory.com/apis', 'not equal');
       done();
     });
   });
@@ -38,6 +38,8 @@ describe('Tistory Category API', function () {
       category.list(function (err, body) {
         var json = JSON.parse(body);
 
+        console.log(body);
+
         assert.equal(json.tistory.status, '200', 'post failed!');
         assert.equal(json.tistory.item.categories.category[0].name, 'Ruby', 'not equal');
 
@@ -49,13 +51,14 @@ describe('Tistory Category API', function () {
   /**
    * test Tistory Category list API
    */
-  describe('#find()', function () {
+  describe.only('#find()', function () {
     it('sould return tistory json', function (done) {
 
-      category.find('Ruby', function (err, category) {
-        console.log(category);
-        assert.equal(category.name, 'Ruby', 'not equal');
-        assert.equal(category.id, '224060', 'not equal');
+      category.find('Ruby', function (err, body) {
+        console.log(body);
+        var json = JSON.parse(body);
+        assert.equal(json.name, 'Ruby', 'not equal');
+        assert.equal(json.id, '224060', 'not equal');
 
         done();
       });

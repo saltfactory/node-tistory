@@ -32,7 +32,7 @@ describe('Tistory Blog API', function () {
   /**
    * test settings blog info
    */
-  describe.only('get blog info', function () {
+  describe('get blog info', function () {
     it('should return blog info', function (done) {
 //      var params = {
 //        targetUrl : 'blog.saltfactory.net'
