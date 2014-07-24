@@ -103,17 +103,17 @@ var params = {
 
 ### tistory.blog.info (params, callback)
 
-|params|값|설명|필요|
-|--|--|--|--|
-|access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
-|targetUrl|String| http://saltfactory.tistory.com 과 같이 1차 도메인 경우 ***saltfactory***, http://blog.saltfactory.net 과 같이 2차 도메인일 경우 ***blog.saltfactory.net*** |필수|
-|output|'json','xml'| 기본값 'json'|옵션|
-|없음|없음|파라미터 없이 콜백함수만 사용 가능 |없음|
+| params | 값 | 설명 | 필요 |
+|---------|-----|-----|-----|
+| access_token | String | OAuth 2.0 인증 후 획득한 access_token | 필수 |
+| targetUrl | String| http://saltfactory.tistory.com 과 같이 1차 도메인 경우 ***saltfactory***, http://blog.saltfactory.net 과 같이 2차 도메인일 경우 ***blog.saltfactory.net*** | 필수 |
+| output | 'json','xml' | 기본값 'json' | 옵션 |
+| 없음 | 없음 | 파라미터 없이 콜백함수만 사용 가능 | 없음 |
 
 ### tistory.post.list (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |output|'json','xml'| 기본값 'json'|옵션|
@@ -125,7 +125,7 @@ var params = {
 ### tistory.post.read (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |postId|Number| 글 번호 |필수|
@@ -135,7 +135,7 @@ var params = {
 ### tistory.post.write (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |title|String| 글 제목 |필수|
@@ -148,7 +148,7 @@ var params = {
 ### tistory.post.modify (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |postId|Number | 수정할 글 번호 | 필수 |
@@ -162,7 +162,7 @@ var params = {
 ### tistory.post.attach (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |uploadedfile|String| 파일경로 |필수|
@@ -171,7 +171,7 @@ var params = {
 ### tistory.category.list (params, callback)
 
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |output|'json','xml'| 기본값 'json'|옵션|
@@ -179,7 +179,7 @@ var params = {
 
 ### tistory.category.find (params, callback)
 |params|값|설명|필요|
-|--|--|---|---|
+|---------|-----|-----|-----|
 |access_token|String| OAuth 2.0 인증 후 획득한 access_token|필수|
 |targetUrl|String| 블로그 URL |필수|
 |name|String| 분류명 |필수|
