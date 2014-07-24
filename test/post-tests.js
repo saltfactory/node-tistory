@@ -9,13 +9,13 @@ var assert = require("assert");
  */
 describe('Tistory Post API', function () {
   var Post = require('../lib/tistory/post.js');
-  var post = new Post(require('../examples/example-options'));
+  var post;
 
   /**
    * before run test method
    */
   before(function () {
-    post.baseUrl = 'https://www.tistory.com/apis';
+    post = new Post(require('../examples/example-options'));
   });
 
   /**
@@ -23,7 +23,7 @@ describe('Tistory Post API', function () {
    */
   describe('set baseUrl to Post property', function () {
     it('should return -1 when the value is not present', function (done) {
-      assert.equal(post.baseUrl, 'https://www.tistory.com/apis', 'not equal');
+      assert.equal(post.options.baseUrl, 'https://www.tistory.com/apis', 'not equal');
       done();
     });
   });
@@ -31,7 +31,7 @@ describe('Tistory Post API', function () {
   /**
    * test Tistory Posts list API
    */
-  describe.only('#list()', function () {
+  describe('#list()', function () {
     it('sould return tistory json', function (done) {
 
       post.list({page: 1}, function (err, body) {
@@ -111,5 +111,21 @@ describe('Tistory Post API', function () {
       });
     })
   });
+
+  describe('#attach()', function(){
+    it('should return post url', function(done){
+      var params = {
+        uploadedfile: '/Users/saltfactory/Downloads/hbn_512x512.png'
+      };
+
+      post.attach(params, function(err, body){
+        var json = JSON.parse(body);
+        console.log(body);
+        assert.equal(json.tistory.status, '200', 'post failed!');
+        done();
+      });
+
+    });
+  })
 
 })

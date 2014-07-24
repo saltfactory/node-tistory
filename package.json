@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Tistory Client module",
   "main": "lib/tistory",
+  "bin":{
+    "tistory":"./bin/tistory.js"
+  },
   "scripts": {
     "test": "tistory-test.js"
   },
@@ -34,7 +37,9 @@
   },
   "dependencies":{
     "request":"~2.37.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "nopt":"~3.0.1",
+    "hbn-logger":"latest"
   }
 
 }

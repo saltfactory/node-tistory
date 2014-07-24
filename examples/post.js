@@ -42,7 +42,7 @@ var callback = function (err, body) {
 //  content: '본문 수정'
 //}, callback);
 //
-//tistory.post.attach({uploadedfile: '/Users/saltfactory/Downloads/square.png'}, callback);
+tistory.post.attach({uploadedfile: '/Users/saltfactory/Downloads/square.png'}, callback);
 //
 //tistory.post.delete({postId: 11}, callback);
 
