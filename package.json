@@ -39,7 +39,8 @@
     "request":"~2.37.0",
     "underscore": "~1.6.0",
     "nopt":"~3.0.1",
-    "hbn-logger":"latest"
+    "hbn-logger":"latest",
+    "async-replace":"latest"
   }
 
 }

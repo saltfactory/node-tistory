@@ -92,7 +92,7 @@ describe('Tistory Post API', function () {
   /**
    * test Tistory Post update API
    */
-  describe.only('#modify()', function () {
+  describe('#modify()', function () {
     it('shoud return post item', function(done){
       var params = {
         postId:8,
