@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="node-tistory : Tistory API client module" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>node-tistory</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/saltfactory/node-tistory">View on GitHub</a>
+
+          <h1 id="project_title">node-tistory</h1>
+          <h2 id="project_tagline">Tistory API client module</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/saltfactory/node-tistory/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/saltfactory/node-tistory/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="node-tistory" class="anchor" href="#node-tistory"><span class="octicon octicon-link"></span></a>node-tistory</h1>
+
+<p><strong><em>node-tistory</em></strong>는 <a href="http://tistory.com">Tistory</a>의 오픈 API를 사용하기 위한 Node.js 모듈이다.</p>
+
+<h1>
+<a name="install-global-module" class="anchor" href="#install-global-module"><span class="octicon octicon-link"></span></a>Install global module</h1>
+
+<p><strong><em>node-tistory</em></strong>는 global로 설치하기 위해서 다음과 같이 <code>npm install -g</code>로 설치할 수 있다.</p>
+
+<pre><code>npm install -g node-tistory
+</code></pre>
+
+<p>글로벌 설치한 후 <code>tistory</code> 명령어를 사용할 수 있다.</p>
+
+<pre><code>tistory -help
+</code></pre>
+
+<h1>
+<a name="install-local-module" class="anchor" href="#install-local-module"><span class="octicon octicon-link"></span></a>Install local module</h1>
+
+<pre><code>npm install node-tistory
+</code></pre>
+
+<p>local module로 설치할 경우 다음과 같이 사용할 수 있다.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">Tistory</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-tistory'</span><span class="p">);</span>
+</pre></div>
+
+<h1>
+<a name="global-configuration-file" class="anchor" href="#global-configuration-file"><span class="octicon octicon-link"></span></a>Global configuration file</h1>
+
+<p><strong><em>node-tistory</em></strong>는 <code>$HOME/.tistory.json</code> 파일을 글로벌 설정 파일로 읽어들인다.
+<strong><em>node-tistory</em></strong>를 사용할 때 필요한 옵션정보를 <code>.tistory.json</code>에 미리 저장해두면 항상 이 설정 파일을 먼저 읽어서 옵션정보로 설정한다.</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">echo</span> <span class="s1">'{</span>
+<span class="s1">    "targetUrl": "Tistory URL",</span>
+<span class="s1">    "access_token": "Tistory API access_token",</span>
+<span class="s1">    "output": "json"</span>
+<span class="s1">}'</span> &gt; ~/.tistory.json
+</pre></div>
+
+<h1>
+<a name="tistory-api" class="anchor" href="#tistory-api"><span class="octicon octicon-link"></span></a>Tistory API</h1>
+
+<p>Tistory에서 제공하고 있는 <a href="http://www.tistory.com/guide/api/oauth">오픈 API 가이드</a> 를 참고하면 된다.</p>
+
+<h1>
+<a name="node-tistory-api-interface" class="anchor" href="#node-tistory-api-interface"><span class="octicon octicon-link"></span></a>node-tistory API interface</h1>
+
+<p><strong><em>node-tistory</em></strong> 에서는 Tistory의 오픈 API를 간단하게 바로 사용할 수 있도록 메소드 형태의 interface를 제공하고 있다.</p>
+
+<table>
+<thead><tr>
+<th>모듈</th>
+<th>인터페이스</th>
+<th>Tistory API</th>
+<th>설명</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>blog</td>
+<td>info</td>
+<td>/apis/blog/info</td>
+<td>블로그 정보</td>
+</tr>
+<tr>
+<td>post</td>
+<td>list</td>
+<td>/apis/post/list</td>
+<td>글 목록</td>
+</tr>
+<tr>
+<td></td>
+<td>read</td>
+<td>/apis/post/read</td>
+<td>글 보기</td>
+</tr>
+<tr>
+<td></td>
+<td>write</td>
+<td>/apis/post/write</td>
+<td>글 쓰기</td>
+</tr>
+<tr>
+<td></td>
+<td>modify</td>
+<td>/apis/post/modify</td>
+<td>글 수정</td>
+</tr>
+<tr>
+<td></td>
+<td>attach</td>
+<td>/apis/post/attach</td>
+<td>파일첨부</td>
+</tr>
+<tr>
+<td>category</td>
+<td>list</td>
+<td>/apis/category/list</td>
+<td>분류 목록</td>
+</tr>
+<tr>
+<td></td>
+<td>find</td>
+<td></td>
+<td>분류 검색</td>
+</tr>
+</tbody>
+</table><p>모든 interface 메소드는 params, callback을 인자값으로 사용한다. params는 Object 형태이고 callback은 <code>err</code>,<code>body</code>,<code>res</code> 값을 받는 함수 형태이다.
+params의 <code>key</code>는 Tistory 오픈 API의 <strong><em>Request Parameter</em></strong>의 이름과 동일하다.</p>
+
+<p>e.g. 티스토리 블로그 <a href="http://blog.saltfactory.net">http://blog.saltfactory.net</a> 정보 보기</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">targetUrl</span><span class="o">:</span><span class="s1">'blog.satlfactory.net'</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">tistory</span><span class="p">.</span><span class="nx">blog</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+</pre></div>
+
+<p>e.g. <a href="http://blog.saltfactory.net%EC%9D%98">http://blog.saltfactory.net의</a> 글 목록보기</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">page</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">count</span><span class="o">:</span> <span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">tistory</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h1>
+<a name="node-tistory-interface-parameters" class="anchor" href="#node-tistory-interface-parameters"><span class="octicon octicon-link"></span></a>node-tistory interface parameters</h1>
+
+<p><strong><em>node-tistory</em></strong>의 인터페이스의 파라미터는 Object 형태로 지정한다.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'targetUrl'</span><span class="o">:</span><span class="s1">'blog.saltfactory.net'</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3>
+<a name="tistorybloginfo-params-callback" class="anchor" href="#tistorybloginfo-params-callback"><span class="octicon octicon-link"></span></a>tistory.blog.info (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>
+<a href="http://saltfactory.tistory.com">http://saltfactory.tistory.com</a> 과 같이 1차 도메인 경우 <strong><em>saltfactory</em></strong>, <a href="http://blog.saltfactory.net">http://blog.saltfactory.net</a> 과 같이 2차 도메인일 경우 <strong><em>blog.saltfactory.net</em></strong>
+</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>없음</td>
+<td>없음</td>
+<td>파라미터 없이 콜백함수만 사용 가능</td>
+<td>없음</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorypostlist-params-callback" class="anchor" href="#tistorypostlist-params-callback"><span class="octicon octicon-link"></span></a>tistory.post.list (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Number</td>
+<td>해당 페이지 글 목록, 기본값 1</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>count</td>
+<td>1~30</td>
+<td>페이지당 글 갯수, 기본값 10</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>categoryId</td>
+<td>Number</td>
+<td>분류에 해당하는 글 목록, 기본값 전체</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>'id' or 'date'</td>
+<td>'id'는 글번호, 'date'는 작성날짜, 기본값 <code>id</code>
+</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorypostread-params-callback" class="anchor" href="#tistorypostread-params-callback"><span class="octicon octicon-link"></span></a>tistory.post.read (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>postId</td>
+<td>Number</td>
+<td>글 번호</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorypostwrite-params-callback" class="anchor" href="#tistorypostwrite-params-callback"><span class="octicon octicon-link"></span></a>tistory.post.write (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>글 제목</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>글 내용</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td>0,1,2,3</td>
+<td>0:비공개, 1:보호, 2:공개, 3:발행, 생략시 0</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>published</td>
+<td>String</td>
+<td>UNIX_TIMESTAMP() 예약발송</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>String</td>
+<td>,를 사용하여 여러개 태그 문자열</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorypostmodify-params-callback" class="anchor" href="#tistorypostmodify-params-callback"><span class="octicon octicon-link"></span></a>tistory.post.modify (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>postId</td>
+<td>Number</td>
+<td>수정할 글 번호</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>글 제목</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>글 내용</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td>0,1,2,3</td>
+<td>0:비공개, 1:보호, 2:공개, 3:발행, 생략시 0</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>published</td>
+<td>String</td>
+<td>UNIX_TIMESTAMP() 예약발송</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>String</td>
+<td>,를 사용하여 여러개 태그 문자열</td>
+<td>옵션</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorypostattach-params-callback" class="anchor" href="#tistorypostattach-params-callback"><span class="octicon octicon-link"></span></a>tistory.post.attach (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>uploadedfile</td>
+<td>String</td>
+<td>파일경로</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorycategorylist-params-callback" class="anchor" href="#tistorycategorylist-params-callback"><span class="octicon octicon-link"></span></a>tistory.category.list (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="tistorycategoryfind-params-callback" class="anchor" href="#tistorycategoryfind-params-callback"><span class="octicon octicon-link"></span></a>tistory.category.find (params, callback)</h3>
+
+<table>
+<thead><tr>
+<th>params</th>
+<th>값</th>
+<th>설명</th>
+<th>필요</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>String</td>
+<td>OAuth 2.0 인증 후 획득한 access_token</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>targetUrl</td>
+<td>String</td>
+<td>블로그 URL</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>분류명</td>
+<td>필수</td>
+</tr>
+<tr>
+<td>output</td>
+<td>'json','xml'</td>
+<td>기본값 'json'</td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table><blockquote>
+<p>Tistory의 모든 API는 access_token, targetUrl 그리고 output 파라미터를 사용하기 때문에
+<strong><em>node-tistory</em></strong>의 global configuration file인 <code>$HOME/.tistory.json</code>에 다음과 같이 저장해두면 파라미터로 설정하지 않아도 된다.</p>
+</blockquote>
+
+<div class="highlight highlight-javascript"><pre><span class="p">{</span>
+  <span class="s2">"targetUrl"</span><span class="o">:</span> <span class="s2">"blog.saltfactory.net"</span><span class="p">,</span>
+  <span class="s2">"access_token"</span><span class="o">:</span> <span class="s2">"access_token"</span><span class="p">,</span>
+  <span class="s2">"output"</span><span class="o">:</span> <span class="s2">"json"</span>
+<span class="p">}</span>
+
+</pre></div>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">page</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="nx">count</span><span class="o">:</span><span class="mi">10</span>
+<span class="p">};</span>
+
+<span class="nx">tistory</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">body</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<h1>
+<a name="tistory-command" class="anchor" href="#tistory-command"><span class="octicon octicon-link"></span></a>tistory command</h1>
+
+<p><strong><em>node-tistory</em></strong>를 <code>npm install -g</code>로 설치를 하면 <code>tistory</code> 명령어를 사용할 수 있다.
+만약 <code>$HOME/.tistory.json</code> 파일에 설정이 저장된 상태라고 생각하면 명령어 사용은 다음과 같다.</p>
+
+<table>
+<thead><tr>
+<th>명령어 옵션</th>
+<th>설명</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>-help, --h</td>
+<td>도움말</td>
+</tr>
+<tr>
+<td>-pretty</td>
+<td>indent 추가해서 JSON 프린트</td>
+</tr>
+</tbody>
+</table><table>
+<thead><tr>
+<th>파라미터 옵션</th>
+<th>설명</th>
+</tr></thead>
+<tbody><tr>
+<td>-파라미터명</td>
+<td>파라미터의 이름 앞에 -를 붙이고 뒤에 값을 지정</td>
+</tr></tbody>
+</table><h3>
+<a name="tistorybloginfo" class="anchor" href="#tistorybloginfo"><span class="octicon octicon-link"></span></a>tistory.blog.info</h3>
+
+<pre><code>tistory blog info -pretty
+</code></pre>
+
+<h3>
+<a name="tistorypostlist" class="anchor" href="#tistorypostlist"><span class="octicon octicon-link"></span></a>tistory.post.list</h3>
+
+<pre><code>tistory post list -page 1 -count 10 -output json
+</code></pre>
+
+<h3>
+<a name="tistorypostread" class="anchor" href="#tistorypostread"><span class="octicon octicon-link"></span></a>tistory.post.read</h3>
+
+<pre><code>tistory post read 105 --pretty
+</code></pre>
+
+<h3>
+<a name="tistorypostwrite" class="anchor" href="#tistorypostwrite"><span class="octicon octicon-link"></span></a>tistory.post.write</h3>
+
+<pre><code>tistory post write -title 안녕하세요 -content 테스트입니다. -tag 태그1,태그2
+</code></pre>
+
+<h3>
+<a name="tistorypostmodify" class="anchor" href="#tistorypostmodify"><span class="octicon octicon-link"></span></a>tistory.post.modify</h3>
+
+<pre><code>tistory post write -postId 105 -title 안녕하세요 -content 테스트입니다. -tag 태그1,태그2
+</code></pre>
+
+<h3>
+<a name="tistorypostattach" class="anchor" href="#tistorypostattach"><span class="octicon octicon-link"></span></a>tistory.post.attach</h3>
+
+<pre><code>tistory post attach -file /Users/saltfactory/Documents/test.png
+</code></pre>
+
+<h3>
+<a name="tistorycategorylist" class="anchor" href="#tistorycategorylist"><span class="octicon octicon-link"></span></a>tistory.category.list</h3>
+
+<pre><code>tistory category list --pretty
+</code></pre>
+
+<h3>
+<a name="tistorycategoryfind" class="anchor" href="#tistorycategoryfind"><span class="octicon octicon-link"></span></a>tistory.category.find</h3>
+
+<pre><code>tistory category find Node.js --pretty
+</code></pre>
+
+<h1>
+<a name="copyright-and-license" class="anchor" href="#copyright-and-license"><span class="octicon octicon-link"></span></a>Copyright and License</h1>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014 SungKwang Song</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">node-tistory maintained by <a href="https://github.com/saltfactory">saltfactory</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
