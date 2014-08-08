@@ -10,7 +10,7 @@ var path = require('path'),
   nopt = require("nopt");
 
 var knownOpts = {
-  "help":Boolean,
+  "help": Boolean,
 
   "targetUrl": String,
   "cfg": path,
@@ -43,18 +43,20 @@ var knownOpts = {
   "uploadedfile": String,
 
 // category
-  "name":String
+  "name": String,
+
+  "image": String
 
 };
 
-var shortHands = {"-h":["-help"], "url": ["-targetUrl"], "t": ["-token"], "file": ["-uploadedfile"]};
+var shortHands = {"-h": ["-help"], "url": ["-targetUrl"], "t": ["-token"], "file": ["-uploadedfile"], "s": ["-src"]};
 var parsed = nopt(knownOpts, shortHands, process.argv, 1);
 var options = {};
 
 
-if(parsed.help){
+if (parsed.help) {
   console.log("" +
-    "usage: tistory [blog|post|category] [info|list|read|write|update|attach|find] -[options] [values]"
+      "usage: tistory [blog|post|category|markdown] [info|list|read|write|update|attach|find|image|rewrite] -[options] [values]"
   );
   process.exit();
 }
@@ -218,19 +220,19 @@ else if (command === "post") {
     });
   }
 }
-else if (command === 'category'){
+else if (command === 'category') {
   var params = {};
 
-  if (subCommand === 'list'){
-     tistory.category.list(function(err,body){
-       out(body);
-       end();
-     });
+  if (subCommand === 'list') {
+    tistory.category.list(function (err, body) {
+      out(body);
+      end();
+    });
   }
-  else if (subCommand === 'find'){
-    if(parsed.name){
-      params = util._extend(params, {name:parsed.name});
-      tistory.category.find(params, function(err, body){
+  else if (subCommand === 'find') {
+    if (parsed.name) {
+      params = util._extend(params, {name: parsed.name});
+      tistory.category.find(params, function (err, body) {
         out(body);
         end();
       });
@@ -239,4 +241,24 @@ else if (command === 'category'){
     }
   }
 }
+else if (command === 'markdown') {
+  var params = {};
 
+  if (subCommand == 'rewrite') {
+    if (parsed.image === 'attached') {
+
+      if (!fs.existsSync(parsed.src)) {
+        logger.warn('Not found file : ' + parsed.src);
+
+      } else {
+        params = util._extend(params, {src: parsed.src, type: 'markdown'});
+      }
+
+      tistory.replaceImageToAttached(params, function (err, body) {
+        out(body);
+        end();
+      });
+
+    }
+  }
+}

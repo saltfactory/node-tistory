@@ -15,7 +15,7 @@ describe('Tistory', function () {
   describe.only('replace local image path to attached remote file url', function () {
     it('replace file path to attached file in document', function (done) {
       var params = {
-        src:'/Users/saltfactory/Dropbox/Blog/posts/2014-07-16-using-passport-tistory-in-express.md',
+        src:'/Users/saltfactory/Dropbox/Blog/posts/2014-08-06-upgrade-latest-docker-using-with-homebrew.md',
         type:'markdown'
       };
 
